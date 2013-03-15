@@ -1,28 +1,22 @@
-var http 	= require('http');
-var url  	= require('url');
-var fs 		= require('fs');
-var path 	= require('path');
-var router 	= require('./router');
+var http 		= require('http');
+var url  		= require('url');
+var fs 			= require('fs');
+var path 		= require('path');
+var headers 	= require('./router').headers;
+
 
 function onRequest(req, res){
 
-	var headers = {
+	var called_file = url.parse(req.url).pathname;
+	called_file = (called_file === '/') ? '/index.html' : called_file;
 
-		html: {type: 'text/html', basePath: '../../templates'},
-		js: {type: 'text/javascript', basePath: '../../js'},
-		css: {type: 'text/css', basePath: '../..'}
-	};
-	
-	var uri = url.parse(req.url).pathname;
+	var file_ext = path.extname(called_file).substr(1);
 
-	var f = (uri === '/') ? '/index.html' : uri;
+	console.log(called_file);
 
-	var ext = path.extname(f).substr(1);
+	fs.readFile(headers[file_ext].basePath + called_file, function(err, data){
 
-	res.writeHeader(200, {'Content-Type': headers[ext].type});
-
-	fs.readFile(headers[ext].basePath + f, function(err, data){
-
+		res.writeHeader(200, {'Content-Type': headers[file_ext].type});
 		res.write(data);
 		res.end();
 	});
