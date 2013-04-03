@@ -23,7 +23,7 @@ function onRequest(req, res){
 
 	router.route(req, res, function(resp){
 
-		console.log('request has been routed');;
+		console.log('request has been routed');
 	});
 };
 
