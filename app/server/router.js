@@ -48,6 +48,11 @@ var route = function(request, response, callback){
 
 	var file_ext = path.extname(called_file).substr(1);
 
+	if( !headers.hasOwnProperty(file_ext) || !routes.hasOwnProperty(called_file) && file_ext === "html"){
+		file_ext = "html";
+		called_file = "/404.html";
+	};
+
 	var requested_file = routes[called_file] != undefined ? routes[called_file].template : called_file;
 
 	fs.readFile(headers[file_ext].basePath + requested_file, function(err, data){

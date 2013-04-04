@@ -7,7 +7,7 @@ router.set('/my/path.html', {}, function(){
 	console.log('setting my path');
 });
 
-router.set('/', {}, function(){
+router.set('/index.html', {}, function(){
 
 	console.log("setting index");
 });
