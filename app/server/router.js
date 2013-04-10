@@ -6,11 +6,11 @@ var path 		= require('path');
 var headers = {
 
 	html: {type: 'text/html', basePath: '../../templates'},
-	js: {type: 'text/javascript', basePath: '../../js'},
+	js: {type: 'text/javascript', basePath: '../..'},
 	css: {type: 'text/css', basePath: '../..'},
 	ico: {type: '', basePath: '../../img'},
-	png: {type: 'image/png', basePath: '../../img'},
-	jpg: {type: 'image/jpeg', basePath: '../../img'}
+	png: {type: 'image/png', basePath: '../..'},
+	jpg: {type: 'image/jpeg', basePath: '../..'}
 };
 
 var routes = function(){
