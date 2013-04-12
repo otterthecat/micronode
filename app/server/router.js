@@ -1,17 +1,8 @@
 var url  		= require('url');
 var fs 			= require('fs');
 var path 		= require('path');
+var headers 	= require('./headers');
 
-
-var headers = {
-
-	html: {type: 'text/html', basePath: '../../templates'},
-	js: {type: 'text/javascript', basePath: '../..'},
-	css: {type: 'text/css', basePath: '../..'},
-	ico: {type: '', basePath: '../../img'},
-	png: {type: 'image/png', basePath: '../..'},
-	jpg: {type: 'image/jpeg', basePath: '../..'}
-};
 
 var routes = function(){
 
