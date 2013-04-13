@@ -3,23 +3,24 @@ var fs 			= require('fs');
 var path 		= require('path');
 var headers 	= require('./headers');
 
+var routes 		= {};
 
-var routes = function(){
+var routeModel = function(){
 
-	this.data  = [];
-	this.template = "/index.html";
-	this.callback = function(){};
+	this.data 		= [];
+	this.template 	= "/index.html";
+	this.callback 	= function(){};
 
 	return this;
 };
 
 var applyRoute = function(prop_obj){
 
-	var r = new routes();
+	var r = new routeModel();
 
 	for(item in prop_obj){
 
-		r[item] = prop_obj.item;
+		r[item] = prop_obj[item];
 	};
 
 	return r;
