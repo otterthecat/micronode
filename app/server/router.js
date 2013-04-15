@@ -26,9 +26,22 @@ var applyRoute = function(prop_obj){
 	return r;
 };
 
+// TODO - add support for passing a single object containing multple routes
 var set = function(request_path, param_obj, callback){
 
-	routes[request_path] = applyRoute(param_obj);
+	if (request_path.indexOf(',') !== -1){
+
+		var paths_array = request_path.split(',');
+
+		for(var i = 0; i < paths_array.length; i += 1){
+
+			routes[paths_array[i].trim()] = applyRoute(param_obj);
+		}
+
+	} else {
+
+		routes[request_path] = applyRoute(param_obj);
+	}
 
 	return callback();
 };
@@ -36,6 +49,8 @@ var set = function(request_path, param_obj, callback){
 var route = function(request, response, callback){
 
 	var called_file = url.parse(request.url).pathname;
+	// TODO - this 'default' for root should be removed in favor of specifically
+	// adding it to router_pages.js
 	called_file = (called_file === '/') ? '/index.html' : called_file;
 
 	var file_ext = path.extname(called_file).substr(1);
@@ -53,7 +68,8 @@ var route = function(request, response, callback){
 		response.write(data);
 		response.end();
 
-		callback(data);
+
+		return typeof callback === 'function' ? callback(data) : true;
 	});
 };
 
