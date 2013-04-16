@@ -3,6 +3,9 @@ var fs 			= require('fs');
 var path 		= require('path');
 var headers 	= require('./headers');
 
+var var_regex = /\/[a-z0-9_\-]+\//g;
+var val_regex = /[a-z0-9._]+[^\/]/;
+
 var routes 		= {};
 
 var routeModel = function(){
@@ -24,6 +27,23 @@ var applyRoute = function(prop_obj){
 	};
 
 	return r;
+};
+
+var parseVarsFromUrl = function(route_str, url_str){
+
+	var reg_array = route_str.match(var_regex);
+
+    for(var i = 0; i < reg_array.length; i += 1){
+      if(reg_array[i] !== ""){
+         
+         console.log("1. "+url_str);
+         console.log("2. "+reg_array[i]);
+         var s = url_str.slice(reg_array[i].length).match(val_regex)[0];
+         url_str = url_str.replace(reg_array[i], "");
+         console.log("3. "+reg_array[i] + s);
+         console.log("4. "+url_str);
+      }  
+	}
 };
 
 // TODO - add support for passing a single object containing multple routes
