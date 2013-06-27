@@ -1,12 +1,10 @@
-var http 		= require('http');
-// TODO - don't like name 'route_pages'
-var router 		= require('./router_pages').router;
+var http        = require('http');
+var routes      = require('./routes').routes;
 
 
 function onRequest(req, res){
 
-
-	router.route(req, res);
+    routes.route(req, res);
 };
 
 var server = http.createServer(onRequest).listen(1337);
